@@ -6,6 +6,10 @@ Rails.application.routes.draw do
       post 'like'
     end
   end
+
+  resources :chefs, except: [:new]
+
+  get '/register', to: 'chefs#new'
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
