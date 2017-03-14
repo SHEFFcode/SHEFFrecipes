@@ -1,6 +1,7 @@
 class RecipesController < ApplicationController
 
     before_action :set_recipe, only: [:edit, :update, :show, :like]
+    before_action :require_user, except: [:show, :index]
     before_action :require_same_user, only: [:edit, :update]
 
     def index 
@@ -8,6 +9,7 @@ class RecipesController < ApplicationController
     end
     
     def show
+
     end
     
     def new
@@ -16,7 +18,7 @@ class RecipesController < ApplicationController
     
     def create
         @recipe = Recipe.new(recipe_params)
-        @recipe.chef = Chef.find(1)
+        @recipe.chef = current_user
 
         if @recipe.save
             flash[:success] = "Your recipe was created successfully!"
@@ -29,7 +31,6 @@ class RecipesController < ApplicationController
 
     def update
         if @recipe.update(recipe_params)
-            # do something
             flash[:success] = "Your recipe was updated successfully!"
             redirect_to recipe_path(@recipe)
         else
@@ -39,10 +40,11 @@ class RecipesController < ApplicationController
     
 
     def edit
+
     end
 
     def like
-        like = Like.create(like: params[:like], chef: Chef.first, recipe: @recipe)
+        like = Like.create(like: params[:like], chef: current_user, recipe: @recipe)
         if like.valid?
             flash[:success] = "Your Selection was successfull!"
         else 
