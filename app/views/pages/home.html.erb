@@ -17,22 +17,26 @@
         </h2>
         <p><%= link_to "Browse Recipe Listings", recipes_path, class: "btn btn-warning btn-small"  %></p>
     </div>
-    <div class="col-lg-4">
-        <h3 class="midrow">
-            Sign in to your account
-        </h3>
-        <h2 class="left">
-            Add / update your recipes, create reviews, like / dislike and much much more!
-        </h2>
-        <p><%= link_to "Log in to your account", "", class: "btn btn-warning btn-small"  %></p>
-    </div>
-    <div class="col-lg-4">
-        <h3 class="midrow">
-            View Recipies as Guest User
-        </h3>
-        <h2 class="left">
-            Browse and view recipes as a guest and sign up later
-        </h2>
-        <p><%= link_to "Browse Recipe Listings", login_path, class: "btn btn-warning btn-small"  %></p>
-    </div>
+    <% if !logged_in? %>
+        <div class="col-lg-4">
+            <h3 class="midrow">
+                Sign in to your account
+            </h3>
+            <h2 class="left">
+                Add / update your recipes, create reviews, like / dislike and much much more!
+            </h2>
+            <p><%= link_to "Log in to your account", login_path, class: "btn btn-warning btn-small"  %></p>
+        </div>
+    <% end %>
+    <% if logged_in? %>
+        <div class="col-lg-4">
+            <h3 class="midrow">
+                Sign out of your account
+            </h3>
+            <h2 class="left">
+                Log out of your account
+            </h2>
+            <p><%= link_to "Log Out", logout_path, class: "btn btn-warning btn-small"  %></p>
+        </div>
+    <% end %>
 </div>
